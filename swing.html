@@ -10,9 +10,19 @@
 
         <div class="cover-container">
 
+            {{ #if true }}
+
+                {{> menu }}
+
+            <div id="viewport">
+                {{> cards }}
+            </div>
+
+            {{ else }}
+
             <div class="masthead clearfix">
                 <div class="inner">
-                    <h3 class="masthead-brand">Cover</h3>
+                    <h3 class="masthead-brand">House Swap</h3>
                     <nav>
                         <ul class="nav masthead-nav">
                             <li class="active"><a href="#">Home</a></li>
@@ -22,14 +32,6 @@
                     </nav>
                 </div>
             </div>
-
-            {{ #if true }}
-
-            <div id="viewport">
-                {{> cards }}
-            </div>
-
-            {{ else }}
 
             <div class="inner cover">
                 <h1 class="cover-heading">Cover your page.</h1>
@@ -42,13 +44,13 @@
                 </p>
             </div>
 
-            {{ /if }}
-
             <div class="mastfoot">
                 <div class="inner">
                     <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
                 </div>
             </div>
+
+            {{ /if }}
 
         </div>
 
