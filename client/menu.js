@@ -6,3 +6,11 @@ Template.menu.events({
 
     }
 });
+
+Template.menu.helpers({
+    numOfMatches: function() {
+        return Matches.find().count();
+    }
+});
+
+Meteor.subscribe('Matches');
