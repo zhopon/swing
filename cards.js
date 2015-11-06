@@ -11,11 +11,11 @@ if (Meteor.isClient) {
         stack.on('throwout', function (e) {
             console.log(e.target.innerText || e.target.textContent, 'has been thrown out of the stack to the', e.throwDirection == 1 ? 'right' : 'left', 'direction.');
 
-            var cardId = e.target.attributes.getNamedItem('data-user-id').value;
+            var card = Blaze.getView(e.target).templateInstance().data;
             if (e.throwDirection == 1) { // Left
-                Meteor.call('markMatching', cardId);
+                Meteor.call('markMatching', card);
             } else {
-                Meteor.call('markNotMatching', cardId);
+                Meteor.call('markNotMatching', card);
             }
 
             e.target.classList.remove('in-deck');

@@ -1,11 +1,11 @@
 Meteor.methods({
 
-    markMatching: function (docId) {
-        Matcher.markMatching(this.userId, docId);
+    markMatching: function (doc) {
+        Matcher.markMatching(this.userId, doc);
     }
 
-    , markNotMatching: function (docId) {
-        Matcher.markNotMatching(this.userId, docId);
+    , markNotMatching: function (doc) {
+        Matcher.markNotMatching(this.userId, doc);
     }
 
 });

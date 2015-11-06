@@ -1,12 +1,11 @@
 Matcher = (function() {
 
-    function notify(data) {
+    function notify(myUserId, data) {
         // check if the other user marked me as a match
-        var theirUserId = data.docId
-            , myUserId = data.userId;
+        var theirUserId = data.userId;
 
         // find me in their matches
-        if (UserMatches.findOne({userId: theirUserId, matches: {$elemMatch: {docId: myUserId, match: true}}})) {
+        if (UserMatches.findOne({userId: theirUserId, matches: {$elemMatch: {userId: myUserId, match: true}}})) {
             Matches.insert({docIds: [myUserId, theirUserId]});
         }
     }
@@ -28,13 +27,13 @@ Matcher = (function() {
             return my;
         }
 
-        , markMatching: function (userId, docId) {
-            UserMatches.upsert({userId: userId}, {$push: {matches: {docId: docId, match: true}}});
-            notify({userId: userId, docId: docId});
+        , markMatching: function (userId, doc) {
+            UserMatches.upsert({userId: userId}, {$push: {matches: {userId: doc.userId, docId: doc._id, match: true}}});
+            notify(userId, {userId: doc.userId, docId: doc._id});
         }
 
-        , markNotMatching: function (userId, docId) {
-            UserMatches.upsert({userId: userId}, {$push: {matches: {docId: docId, match: false}}});
+        , markNotMatching: function (userId, doc) {
+            UserMatches.upsert({userId: userId}, {$push: {matches: {userId: doc.userId, docId: doc._id, match: false}}});
         }
 
     }
