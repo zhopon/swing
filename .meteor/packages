@@ -6,7 +6,6 @@
 
 insecure
 weedow:swing
-twbs:bootstrap
 weedow:matches
 standard-minifiers
 meteor-base
@@ -24,3 +23,5 @@ spacebars
 check
 accounts-password
 accounts-ui
+meteoric:ionic-sass
+meteoric:ionicons-sass

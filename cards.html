@@ -1,11 +1,31 @@
 <template name="cards">
-    <ul class="stack">
+    <div class="stack">
         {{ #each cards }}
           {{> card }}
         {{ /each }}
-    </ul>
+    </div>
 </template>
 
 <template name="card">
-    <li class="{{ title }}">{{ content }}</li>
+    <!--<li class="{{ title }} card">-->
+    <div class="{{ title }} card">
+        <div class="item item-text-wrap">
+            {{ content }}
+        </div>
+        <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#">
+                <i class="icon ion-thumbsup"></i>
+                Like
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-chatbox"></i>
+                Message
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-share"></i>
+                Dismiss
+            </a>
+        </div>
+    </div>
+    <!--</li>-->
 </template>
