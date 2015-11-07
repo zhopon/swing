@@ -23,5 +23,5 @@ spacebars
 check
 accounts-password
 accounts-ui
-meteoric:ionic-sass
-meteoric:ionicons-sass
+semantic:ui
+flemay:less-autoprefixer

@@ -1,16 +1,28 @@
 <template name="menu">
 
-    <div class="bar bar-header bar-light">
-        {{# if isDefaultPage}}
-            <button id="options" class="button button-icon icon ion-gear-a"></button>
-        {{else}}
-            <button id="back" class="button button-icon icon ion-backspace-outline"></button>
-        {{/if}}
-        <h1 class="title">Matcher</h1>
-        <button class="button button-clear">
-            <span class="badge badge-assertive">{{ numOfMatches }}</span>
-        </button>
+    <div class="ui borderless menu">
+        <div class="item">
+            {{# if isDefaultPage}}
+            <button id="options" class="ui icon basic button">
+                <i class="setting icon"></i>
+            </button>
+            {{else}}
+            <button id="back" class="ui icon basic button">
+                <i class="angle left icon"></i>
+                Back
+            </button>
+            {{/if}}
+        </div>
 
+        <div class="header item">
+            Swappa
+        </div>
+
+        <div class="right floated item">
+            <button class="ui icon basic button">
+                <i class="comments icon"></i>
+            </button>
+        </div>
     </div>
 
 </template>

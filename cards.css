@@ -1,10 +1,12 @@
 .stack {
     position: relative;
     height: 400px;
-    top: 30px;
 }
 
 .stack .card {
     position: absolute;
-    width: 300px;
+}
+
+.stack .ui.card {
+    margin: 0;
 }

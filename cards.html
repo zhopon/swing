@@ -1,31 +1,39 @@
 <template name="cards">
+<div class="cards">
     <div class="stack">
         {{ #each cards }}
           {{> card }}
         {{ /each }}
     </div>
+    <div class="extra content">
+        <div class="ui buttons">
+            <button class="ui button">
+                <i class="thumbs outline up icon"></i>
+                Like
+            </button>
+            <button class="ui button">
+                <i class="mail outline icon"></i>
+                Message
+            </button>
+            <button class="ui button">
+                <i class="thumbs outline down icon"></i>
+                Dismiss
+            </button>
+        </div>
+    </div>
+</div>
 </template>
 
 <template name="card">
-    <!--<li class="{{ title }} card">-->
-    <div class="{{ title }} card">
-        <div class="item item-text-wrap">
-            {{ content }}
+    <div class="ui centered card">
+        <div class="image">
+            <img src="https://placehold.it/350x150">
         </div>
-        <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="#">
-                <i class="icon ion-thumbsup"></i>
-                Like
-            </a>
-            <a class="tab-item" href="#">
-                <i class="icon ion-chatbox"></i>
-                Message
-            </a>
-            <a class="tab-item" href="#">
-                <i class="icon ion-share"></i>
-                Dismiss
-            </a>
+        <div class="content">
+            <div class="header">Cute Dog</div>
+            <div class="description">
+                <p>{{ content }}</p>
+            </div>
         </div>
     </div>
-    <!--</li>-->
 </template>
