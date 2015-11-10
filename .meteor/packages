@@ -5,8 +5,6 @@
 # but you can also edit it by hand.
 
 insecure
-weedow:swing
-weedow:matches
 standard-minifiers
 meteor-base
 mobile-experience
@@ -25,3 +23,7 @@ accounts-password
 accounts-ui
 semantic:ui
 flemay:less-autoprefixer
+zhopon:swing
+swappa:swappa-lib
+swappa:swappa-matches
+swappa:swappa-cards

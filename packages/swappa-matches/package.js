@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'weedow:matches',
+  name: 'swappa:swappa-matches',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -11,17 +11,22 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.use('mongo');
+
+  api.use(['swappa:swappa-lib']);
+
   api.versionsFrom('1.1.0.3');
   api.addFiles([
     'lib/collections.js'
   ]);
+
   api.addFiles([
     'server/lib/matcher.js',
     'server/publications.js',
     'server/methods.js'
   ], 'server');
+
   api.export('Matches');
+
 });
 
 Package.onTest(function(api) {

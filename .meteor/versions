@@ -61,8 +61,8 @@ reactive-var@1.0.6
 reload@1.1.4
 retry@1.0.4
 routepolicy@1.0.6
-semantic:ui@2.1.5
-semantic:ui-data@2.1.5
+semantic:ui@2.1.6
+semantic:ui-data@2.1.6
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
@@ -70,6 +70,9 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.2
+swappa:swappa-cards@0.0.1
+swappa:swappa-lib@0.0.1
+swappa:swappa-matches@0.0.1
 templating@1.1.5
 templating-tools@1.0.0
 tracker@1.0.9
@@ -78,5 +81,4 @@ underscore@1.0.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5
-weedow:matches@0.0.1
-weedow:swing@0.0.1
+zhopon:swing@0.0.1
