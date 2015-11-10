@@ -1,5 +1,5 @@
 Meteor.subscribe('Cards');
-var viewPortCards = cards.find();
+var viewPortCards = cards.find().fetch();
 
 Template.cards.helpers({
     cards: function () {
@@ -10,6 +10,11 @@ Template.cards.helpers({
     },
     likeIt: function() {
         console.log('current card', viewPortCards[0]);
-        markMatching(viewPortCards[0]);
+    }
+});
+
+Template.cards.events({
+    'click #likeIt': function() {
+        Meteor.call('markMatching', viewPortCards[0]);
     }
 });

@@ -3,7 +3,7 @@
     height: 400px;
 }
 
-.stack .card {
+.stack .ui.card {
     position: absolute;
 }
 
