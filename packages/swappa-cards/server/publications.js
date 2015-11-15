@@ -18,11 +18,15 @@ Meteor.publish('Cards', function() {
         self.added('cards', doc._id, doc);
     });
 
-    userMatches.observe({
+    var handle = userMatches.observe({
         added: function(match) {
             docIds.push(match.docId);
             self.removed('cards', match.docId);
         }
+    });
+
+    self.onStop(function() {
+        handle.stop();
     });
 
     self.ready();
