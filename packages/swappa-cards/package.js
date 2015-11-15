@@ -13,7 +13,13 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
 
-  api.use(['swappa:swappa-lib']);
+  api.use([
+      'swappa:swappa-lib',
+  ]);
+
+  api.use([
+      'swappa:swappa-matches'
+  ], 'server');
 
   api.addFiles('lib/collections.js');
 

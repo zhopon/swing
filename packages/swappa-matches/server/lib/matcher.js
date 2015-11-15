@@ -5,7 +5,7 @@ Matcher = (function() {
         var theirUserId = data.userId;
 
         // find me in their matches
-        if (UserMatches.findOne({userId: theirUserId, matches: {$elemMatch: {userId: myUserId, match: true}}})) {
+        if (UserMatches.findOne({ownerId: theirUserId, userId: myUserId, match: true})) {
             Matches.insert({docIds: [myUserId, theirUserId]});
         }
     }
@@ -18,9 +18,6 @@ Matcher = (function() {
             // TODO: Remove objects already seen by user
 
 
-            function docIds(match) {
-                return match.docId;
-            }
 
             //my = collection.find({_id: {$nin: my.matches.map(docIds)}});
 
@@ -28,13 +25,16 @@ Matcher = (function() {
         }
 
         , markMatching: function (userId, doc) {
-            UserMatches.upsert({userId: userId}, {$push: {matches: {userId: doc.userId, docId: doc._id, match: true}}});
+            UserMatches.insert({userId: userId, ownerId: doc.userId, docId: doc._id, match: true});
             notify(userId, {userId: doc.userId, docId: doc._id});
         }
 
         , markNotMatching: function (userId, doc) {
-            UserMatches.upsert({userId: userId}, {$push: {matches: {userId: doc.userId, docId: doc._id, match: false}}});
+            UserMatches.insert({userId: userId, ownerId: doc.userId, docId: doc._id, match: false});
         }
 
+        , markedByUser: function(userId) {
+            return UserMatches.find({userId: userId});
+        }
     }
 }());

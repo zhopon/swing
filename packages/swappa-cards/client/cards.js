@@ -1,20 +1,16 @@
-Meteor.subscribe('Cards');
-var viewPortCards = cards.find().fetch();
+Tracker.autorun(function() {
+    Meteor.subscribe('Cards');
+});
 
 Template.cards.helpers({
     cards: function () {
-        return viewPortCards;
-    },
-    currentCard: function() {
-        return viewPortCards[0];
-    },
-    likeIt: function() {
-        console.log('current card', viewPortCards[0]);
+        return Cards.find();
     }
 });
 
 Template.cards.events({
     'click #likeIt': function() {
-        Meteor.call('markMatching', viewPortCards[0]);
+        var cards = Cards.find().fetch();
+        Meteor.call('markMatching', cards[cards.length - 1]);
     }
 });

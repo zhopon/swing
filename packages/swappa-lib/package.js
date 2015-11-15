@@ -16,5 +16,5 @@ Package.onUse(function(api) {
     'ecmascript'
   ]);
 
-  api.imply(['templating', 'mongo']);
+  api.imply(['templating', 'mongo', 'tracker']);
 });

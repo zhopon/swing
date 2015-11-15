@@ -25,7 +25,7 @@ Package.onUse(function(api) {
     'server/methods.js'
   ], 'server');
 
-  api.export('Matches');
+  api.export('Matcher');
 
 });
 
