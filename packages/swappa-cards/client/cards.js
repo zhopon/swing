@@ -13,4 +13,8 @@ Template.cards.events({
         var cards = Cards.find().fetch();
         Meteor.call('markMatching', cards[cards.length - 1]);
     }
+    , 'click #dislikeIt': function() {
+        var cards = Cards.find().fetch();
+        Meteor.call('markNotMatching', cards[cards.length - 1]);
+    }
 });
