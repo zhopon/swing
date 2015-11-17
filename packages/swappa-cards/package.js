@@ -26,7 +26,8 @@ Package.onUse(function(api) {
   api.addFiles([
       'client/cards.css',
       'client/cards.html',
-      'client/cards.js'
+      'client/cards.js',
+      'lib/client/methods.js'
   ], 'client');
 
   api.addFiles([
