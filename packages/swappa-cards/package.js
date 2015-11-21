@@ -32,8 +32,11 @@ Package.onUse(function(api) {
 
   api.addFiles([
       'server/migrations.js',
-      'server/publications.js'
+      'server/publications.js',
+      'server/methods.js'
   ], 'server');
+
+  api.export('Cards');
 });
 
 Package.onTest(function(api) {

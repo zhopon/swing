@@ -73,6 +73,7 @@ standard-minifiers@1.0.2
 swappa:swappa-cards@0.0.1
 swappa:swappa-lib@0.0.1
 swappa:swappa-matches@0.0.1
+swappa:swappa-profile@0.0.1
 templating@1.1.5
 templating-tools@1.0.0
 tracker@1.0.9

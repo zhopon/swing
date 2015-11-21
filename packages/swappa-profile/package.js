@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'swappa:swappa-lib',
+  name: 'swappa:swappa-profile',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -12,9 +12,26 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
+
   api.use([
-    'ecmascript'
+    'swappa:swappa-lib',
+    'swappa:swappa-cards'
   ]);
 
-  api.imply(['templating', 'mongo', 'tracker', 'session', 'reactive-var']);
+
+  api.addFiles([
+    'lib/client/profile.html',
+    'lib/client/profile.js'
+  ], 'client');
+
+  api.addFiles([
+      'lib/server/publications.js'
+  ], 'server');
+});
+
+Package.onTest(function(api) {
+  api.use('ecmascript');
+  api.use('tinytest');
+  api.use('swappa:swappa-profile');
+  api.addFiles('swappa-profile-tests.js');
 });
