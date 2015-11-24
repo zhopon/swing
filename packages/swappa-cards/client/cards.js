@@ -1,20 +1,31 @@
+var pagination = {
+    limit: 10,
+    threshold: 5
+};
+
 Tracker.autorun(function() {
-    Meteor.subscribe('Cards');
+    Meteor.subscribe('MatchingCards', pagination);
 });
 
 Template.cards.helpers({
     cards: function () {
-        return Cards.find();
+        return MatchingCards.find();
     }
+    , css: function(prop) {
+        return "z-index: " + (100 - prop.hash.index);
+    }
+
 });
 
 Template.cards.events({
     'click #likeIt': function() {
-        var cards = Cards.find().fetch();
-        Meteor.call('markMatching', cards[cards.length - 1]);
+        var cardId = Blaze.getData(Template.instance().find('.card:first-child'))._id;
+        var currentCard = MatchingCards.findOne({_id: cardId});
+        Meteor.call('markMatching', currentCard);
     }
     , 'click #dislikeIt': function() {
-        var cards = Cards.find().fetch();
-        Meteor.call('markNotMatching', cards[cards.length - 1]);
+        var cardId = Blaze.getData(Template.instance().find('.card:first-child'))._id;
+        var currentCard = MatchingCards.findOne({_id: cardId});
+        Meteor.call('markNotMatching', currentCard);
     }
 });
