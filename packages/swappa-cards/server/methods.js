@@ -8,7 +8,7 @@ Meteor.methods({
 
         var userId = this.userId;
 
-        card._id = new Mongo.ObjectID();
+        card._id = new Mongo.ObjectID().toHexString();
         Meteor.users.update(userId, {$set: {'profile.rooms': [card]}});
 
         return true;
