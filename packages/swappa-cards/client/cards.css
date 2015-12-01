@@ -1,6 +1,7 @@
 .stack {
     position: relative;
     height: 400px;
+    margin-bottom: 7px;
 }
 
 .stack .ui.card {
