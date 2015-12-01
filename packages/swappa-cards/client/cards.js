@@ -12,19 +12,19 @@ Template.cards.helpers({
         return MatchingCards.find();
     }
     , css: function(prop) {
-        return "z-index: " + (100 - prop.hash.index);
+        return "z-index: " + (pagination.limit - prop.hash.index);
     }
 
 });
 
 Template.cards.events({
     'click #likeIt': function() {
-        var cardId = Blaze.getData(Template.instance().find('.card:first-child'))._id;
+        var cardId = Blaze.getData(Template.instance().find('.card:first-child')).profile.card._id;
         var currentCard = MatchingCards.findOne({_id: cardId});
         Meteor.call('markMatching', currentCard);
     }
     , 'click #dislikeIt': function() {
-        var cardId = Blaze.getData(Template.instance().find('.card:first-child'))._id;
+        var cardId = Blaze.getData(Template.instance().find('.card:first-child')).profile.card._id;
         var currentCard = MatchingCards.findOne({_id: cardId});
         Meteor.call('markNotMatching', currentCard);
     }

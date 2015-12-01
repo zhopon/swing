@@ -6,7 +6,7 @@ var state = new ReactiveVar('initial');
 
 Template.profile.helpers({
     userCard: function() {
-        return Cards.findOne({userId: Meteor.userId()});
+        return Meteor.user() && Meteor.user().profile.rooms[0];
     },
     formHasErrors: function() {
         return state.get() === 'error';

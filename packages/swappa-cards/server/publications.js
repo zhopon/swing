@@ -10,21 +10,31 @@ Meteor.publish('MatchingCards', function(pagination) {
     var self = this;
     var initializing = true;
 
-    var cards = Cards.find({
-        userId: {$ne: this.userId},
-        _id: {$nin: userMatches.map(function(match) {
+    var userCards = Meteor.users.find({
+        _id: {$ne: this.userId},
+        'profile.rooms': {$exists: true},
+        'profile.rooms._id': {$nin: userMatches.map(function(match) {
             return match.docId;
         })}
     }, {
+        fields: {
+            _id: 1,
+            username: 1,
+            profile: 1
+        },
         limit: pagination.limit
     });
 
-    if (cards.count() === 0) {
+    if (userCards.count() === 0) {
         self.ready();
         return [];
     }
-    cards.map(function(doc) {
-        self.added('matchingCards', doc._id, doc);
+    userCards.forEach(function(user) {
+        user.profile.rooms.forEach(function(room) {
+            room.userId = user._id;
+            user.profile.card = room;
+            self.added('matchingCards', room._id, user);
+        });
     });
 
     var removed = 0;
@@ -36,15 +46,24 @@ Meteor.publish('MatchingCards', function(pagination) {
             self.removed('matchingCards', match.docId);
             removed++;
             if (removed >= pagination.threshold) {
-                Cards.find({
-                    userId: {$ne: self.userId},
-                    _id: {$nin: userMatches.map(function(match) {
+                Meteor.users.find({
+                    _id: {$ne: self.userId},
+                    'profile.rooms._id': {$nin: userMatches.map(function(match) {
                         return match.docId;
                     })}
                 }, {
+                    fields: {
+                        _id: 1,
+                        username: 1,
+                        profile: 1
+                    },
                     limit: removed + pagination.threshold
-                }).forEach(function(doc) {
-                    self.added('matchingCards', doc._id, doc);
+                }).forEach(function(user) {
+                    user.profile.rooms.forEach(function(room) {
+                        room.userId = user._id;
+                        user.profile.card = room;
+                        self.added('matchingCards', room._id, user);
+                    });
                 });
                 removed = 0;
             }

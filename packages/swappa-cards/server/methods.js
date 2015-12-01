@@ -8,16 +8,8 @@ Meteor.methods({
 
         var userId = this.userId;
 
-        card.userId = userId;
-        var newCardId = Cards.insert(card);
-
-        // Remove old user cards
-        if (newCardId) {
-            Cards.remove({
-                _id: {$ne: newCardId},
-                userId: userId
-            });
-        }
+        card._id = new Mongo.ObjectID();
+        Meteor.users.update(userId, {$set: {'profile.rooms': [card]}});
 
         return true;
     }

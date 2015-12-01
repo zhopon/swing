@@ -1,6 +1,7 @@
 Meteor.startup(function() {
     if (Meteor.users.find().count() == 0) {
-        Accounts.createUser({username: 'aaa', password: 'aaa'});
-        Accounts.createUser({username: 'bbb', password: 'bbb'});
+        for(var i=1; i<=100; i++) {
+            Accounts.createUser({username: 'user' + i, password: '123456'});
+        }
     }
 });
