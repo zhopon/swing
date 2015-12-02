@@ -56,7 +56,7 @@ Meteor.publish('MatchingCards', function(pagination) {
                     },
                     limit: removed + pagination.threshold
                 });
-                [].concat.apply([], userCards.map(createCards)).forEach(function(card) {
+                [].concat.apply([], newCards(createCards)).forEach(function(card) {
                     self.added('matchingCards', card._id, card);
                 });
 
