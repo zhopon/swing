@@ -21,11 +21,18 @@ Meteor.startup(function() {
             }
         ];
 
+        var now = Date.now();
         var sampleUsers = Meteor.users.find().map(function (user) {
             var room = EJSON.clone(rooms[Math.floor(Math.random() * rooms.length)]);
             var id = new Mongo.ObjectID();
             var profile = user.profile || {};
             room._id = id.toHexString();
+
+            // Create a date range starting from now + 30 days (random) ending in 4 days (random)
+            var fromDate = new Date(now + Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 30));
+            room.fromDate = fromDate;
+            room.toDate = new Date(fromDate.valueOf() + Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 4));
+
             profile.rooms = [room];
             user.profile = profile;
             return user;

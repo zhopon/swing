@@ -4,6 +4,8 @@ Meteor.methods({
             title: String
           , content: String
           , hasRoomMates: Boolean
+          , fromDate: Date
+          , toDate: Date
         });
 
         var userId = this.userId;

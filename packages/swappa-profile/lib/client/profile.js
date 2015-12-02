@@ -6,7 +6,10 @@ var state = new ReactiveVar('initial');
 
 Template.profile.helpers({
     userCard: function() {
-        return Meteor.user() && Meteor.user().profile.rooms[0];
+        var room = Meteor.user() && Meteor.user().profile.rooms[0];
+        room.fromDateString = moment(room.fromDate).format('DD/MM/YYYY');
+        room.toDateString = moment(room.toDate).format('DD/MM/YYYY');
+        return room;
     },
     formHasErrors: function() {
         return state.get() === 'error';
@@ -27,6 +30,8 @@ Template.profile.events({
             title: template.$('[name="title"]').val()
           , content: template.$('[name="description"]').val()
           , hasRoomMates: template.$('[name="hasRoomMates"]').prop('checked')
+          , fromDate: template.$('[name="fromDate"]').data("DateTimePicker").date().toDate()
+          , toDate: template.$('[name="toDate"]').data("DateTimePicker").date().toDate()
         };
 
         state.set('saving');
@@ -41,12 +46,30 @@ Template.profile.events({
 });
 
 Template.profile.onRendered(function() {
-    this.$('.ui.form')
-        .form({
-            fields: {
-                title     : 'empty',
-                description   : 'empty'
-            }
-        })
-    ;
+    this.$('.ui.form').form({
+        fields: {
+            title     : 'empty',
+            description   : 'empty'
+        }
+    });
+
+    /**
+     * Set the date pickers so that you can only choose a range of dates
+     */
+    var $fromDate = this.$('[name="fromDate"]');
+    var $toDate = this.$('[name="toDate"]');
+
+    $fromDate.datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+    $toDate.datetimepicker({
+        format: 'DD/MM/YYYY',
+        useCurrent: false //Important! See issue #1075
+    });
+    $fromDate.on("dp.change", function (e) {
+        $toDate.data("DateTimePicker").minDate(e.date);
+    });
+    $toDate.on("dp.change", function (e) {
+        $fromDate.data("DateTimePicker").maxDate(e.date);
+    });
 });

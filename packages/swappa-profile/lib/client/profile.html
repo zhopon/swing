@@ -3,21 +3,45 @@
     <h2 class="ui header">Hello, {{ currentUser.username }}!</h2>
 
     <form class="ui form">
+
         <div class="field">
             <label>Apartment title</label>
             <input name="title" placeholder="Apartment title" type="text" value="{{ userCard.title }}">
         </div>
+
+
         <div class="field">
             <label>Short description</label>
             <textarea name="description" placeholder="Short description" rows="2">{{ userCard.content }}</textarea>
         </div>
+
+        <h4 class="ui header">Availability</h4>
+
+        <div class="two fields">
+
+            <div class="field">
+                <label>From</label>
+                <input class="ui dropdown datetimepicker" name="fromDate" placeholder="" type="text" value="{{ userCard.fromDateString }}">
+            </div>
+
+            <div class="field">
+                <label>To</label>
+                <input class="ui dropdown datetimepicker" name="toDate" placeholder="" type="text" value="{{ userCard.toDateString }}">
+            </div>
+
+        </div>
+
+        <h4 class="ui header">Other</h4>
+
         <div class="field">
             <div class="ui checkbox">
                 <input name="hasRoomMates" id="roomMates" type="checkbox" checked="{{userCard.hasRoomMates}}">
                 <label for="roomMates">I have roommates</label>
             </div>
         </div>
+
         <button class="ui button" type="submit">Submit</button>
+
         {{#with formIsSaving }}
             Saving...
         {{/with}}
@@ -27,6 +51,7 @@
         {{#with formHasErrors }}
             Oops... Something went wrong...
         {{/with}}
+
     </form>
 
 </template>

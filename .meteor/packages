@@ -29,3 +29,5 @@ swappa:swappa-matches
 swappa:swappa-cards
 swappa:swappa-profile
 reactive-var
+sarasate:semantic-ui-datetimepicker
+momentjs:moment

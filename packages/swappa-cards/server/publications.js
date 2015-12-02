@@ -29,12 +29,9 @@ Meteor.publish('MatchingCards', function(pagination) {
         self.ready();
         return [];
     }
-    userCards.forEach(function(user) {
-        user.profile.rooms.forEach(function(room) {
-            room.userId = user._id;
-            user.profile.card = room;
-            self.added('matchingCards', room._id, user);
-        });
+
+    [].concat.apply([], userCards.map(createCards)).forEach(function(card) {
+        self.added('matchingCards', card._id, card);
     });
 
     var removed = 0;
@@ -46,7 +43,7 @@ Meteor.publish('MatchingCards', function(pagination) {
             self.removed('matchingCards', match.docId);
             removed++;
             if (removed >= pagination.threshold) {
-                Meteor.users.find({
+                var newCards = Meteor.users.find({
                     _id: {$ne: self.userId},
                     'profile.rooms._id': {$nin: userMatches.map(function(match) {
                         return match.docId;
@@ -58,13 +55,11 @@ Meteor.publish('MatchingCards', function(pagination) {
                         profile: 1
                     },
                     limit: removed + pagination.threshold
-                }).forEach(function(user) {
-                    user.profile.rooms.forEach(function(room) {
-                        room.userId = user._id;
-                        user.profile.card = room;
-                        self.added('matchingCards', room._id, user);
-                    });
                 });
+                [].concat.apply([], userCards.map(createCards)).forEach(function(card) {
+                    self.added('matchingCards', card._id, card);
+                });
+
                 removed = 0;
             }
         }
@@ -78,3 +73,24 @@ Meteor.publish('MatchingCards', function(pagination) {
 
     self.ready();
 });
+
+function createCards(user) {
+    var cards = [];
+    var userId = user._id;
+
+    user.profile.rooms.forEach(function(room) {
+        var card = _.clone(user);
+        room.userId = userId;
+
+        if (room.fromDate) {
+            room.fromDateString = moment(room.fromDate).format('DD-MM-YYYY');
+            room.toDateString = moment(room.toDate).format('DD-MM-YYYY');
+        }
+
+        card.profile.card = room;
+        card._id = room._id;
+        cards.push(card);
+    });
+
+    return cards;
+}
