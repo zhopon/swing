@@ -26,8 +26,7 @@ Meteor.publish('MatchingCards', function(pagination) {
     });
 
     if (userCards.count() === 0) {
-        self.ready();
-        return [];
+        return self.ready();
     }
 
     [].concat.apply([], userCards.map(createCards)).forEach(function(card) {
@@ -56,7 +55,8 @@ Meteor.publish('MatchingCards', function(pagination) {
                     },
                     limit: removed + pagination.threshold
                 });
-                [].concat.apply([], newCards(createCards)).forEach(function(card) {
+
+                [].concat.apply([], newCards.map(createCards)).forEach(function(card) {
                     self.added('matchingCards', card._id, card);
                 });
 
